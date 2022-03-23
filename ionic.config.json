@@ -1,0 +1,7 @@
+{
+  "name": "note-manager",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

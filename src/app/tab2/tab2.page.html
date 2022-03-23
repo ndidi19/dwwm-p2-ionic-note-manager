@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>List notes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let noteItem of allNotes">
+      <ion-item>
+        <ion-label>
+          <h2>{{ noteItem.noteTitle }}</h2>
+          <p>Limit date : {{ noteItem.date }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="edit(noteItem.id)">Edit</ion-item-option>
+        <ion-item-option color="danger" (click)="delete(noteItem.id)">Delete</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
+<div *ngIf="isLoading" class="spin">
+  <ion-spinner name="bubbles"></ion-spinner>
+</div>
