@@ -4,6 +4,8 @@ import { Note } from 'src/app/model/note.model';
 import { NoteService } from 'src/app/services/note.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
+import { Category } from 'src/app/model/category.model';
+import { noteCategories } from 'src/app/model/data/note-categories';
 
 @Component({
     selector: 'edit-modal',
@@ -14,6 +16,7 @@ export class EditModal implements OnInit, OnDestroy {
     noteItem: Note;
     sub: Subscription;
     form: FormGroup;
+    categories: Category[];
 
     constructor(private noteService: NoteService,
         private formBuilder: FormBuilder,
@@ -21,6 +24,7 @@ export class EditModal implements OnInit, OnDestroy {
         private toastController: ToastController) {}
 
     ngOnInit(): void {
+        this.categories = noteCategories;
         this.sub = this.noteService.getNote(this.id).subscribe(data => {
             this.noteItem = {
                 id: data.payload.id,
@@ -35,8 +39,15 @@ export class EditModal implements OnInit, OnDestroy {
 
     createForm() {
         this.form = this.formBuilder.group({
-            noteContent: new FormControl(this.noteItem.noteContent),
-            date: new FormControl(this.noteItem.date)
+            category: new FormControl(this.noteItem.category, {
+                validators: Validators.required
+            }),
+            noteContent: new FormControl(this.noteItem.noteContent, {
+                validators: [Validators.required]
+            }),
+            date: new FormControl(this.noteItem.date, {
+                validators: [Validators.required]
+            })
         });
     }
 

@@ -24,6 +24,18 @@
           <ion-row>
             <ion-col>
               <ion-item>
+                <ion-label position="floating">Category</ion-label>
+                <ion-select formControlName="category">
+                  <ion-select-option *ngFor="let category of categories" [value]="category.id">
+                    {{ category.name }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
                 <ion-label position="floating">Content</ion-label>
                 <ion-textarea formControlName="noteContent"></ion-textarea>
               </ion-item>
@@ -39,7 +51,7 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-button (click)="add()">Add to list</ion-button>
+              <ion-button (click)="add()" [disabled]="!form.valid">Add to list</ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
